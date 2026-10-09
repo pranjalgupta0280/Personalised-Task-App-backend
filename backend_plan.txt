@@ -1,0 +1,42 @@
+Backend Plan for Day-Wise To-Do App
+
+[Database Schema]
+User Table:
+- id (PK)
+- name, email, password
+- created_at (Date) -> Used to calculate starting year for history
+
+Task Table:
+- id (PK)
+- user_id (FK)
+- description (String)
+- is_completed (Boolean)
+- date (Date) -> Format: YYYY-MM-DD
+
+[Flowchart: Creating & Updating Tasks]
+(Frontend Home Page)
+       |
+       v
+[POST /api/tasks] --> Insert new task with today's date
+       |
+       v
+[PUT /api/tasks/:id] --> Update is_completed status
+
+[Flowchart: Fetching History]
+(Frontend History Page)
+       |
+       v
+1. [GET /api/users/me] --> Get user's 'created_at' to list years
+       |
+       v
+2. User selects Year -> Month -> Date on frontend
+       |
+       v
+3. [GET /api/tasks?date=YYYY-MM-DD] --> Fetch tasks for selected date
+       |
+       v
+4. Display tasks and their status
+
+[Tech Stack Recommendations]
+- Node.js + Express for API
+- MongoDB (Mongoose) or PostgreSQL (Prisma/Sequelize) for Database
